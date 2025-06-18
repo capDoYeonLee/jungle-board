@@ -34,4 +34,8 @@ public class Comment {
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Comment> replies = new ArrayList<>();
+
+    public void updateComment(String commentContent) {
+        this.commentContent = commentContent;
+    }
 }

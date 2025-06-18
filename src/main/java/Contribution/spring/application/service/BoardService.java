@@ -65,6 +65,7 @@ public class BoardService {
         Board board = findBoard(boardId);
 
         Comment parent = null;
+
         if (request.getParentId() != null) {
             parent = commentRepository.findById(request.getParentId())
                     .orElseThrow(() -> new IllegalArgumentException("no parent comment"));
@@ -95,8 +96,12 @@ public class BoardService {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("no exist board"));
         return boardConverter.getSpecificBoardResponse(board);
-
     }
 
+    public void updateComment(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("no exist comment"));
+        comment.updateComment(comment.getCommentContent());
+    }
 }
 

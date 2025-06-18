@@ -28,27 +28,27 @@ public class BoardController {
     }
 
     @GetMapping("/board/{boardId}")
-    public GetSpecificBoardResponse getBoard(@PathVariable Long boardId) {
+    public GetSpecificBoardResponse getBoard(@PathVariable("boardId") Long boardId) {
         return boardService.getSpecificBoardResponse(boardId);
     }
 
     @PutMapping("/board/{boardId}")
-    public void updateBoard(@RequestBody CommandBoardRequest request, @PathVariable Long boardId) throws Exception {
+    public void updateBoard(@RequestBody CommandBoardRequest request, @PathVariable("boardId") Long boardId) throws Exception {
         boardService.updateBoard(request, boardId);
     }
 
     @DeleteMapping("/board/{boardId}")
-    public void deleteBoard(@PathVariable Long boardId) throws Exception {
+    public void deleteBoard(@PathVariable("boardId") Long boardId) throws Exception {
         boardService.deleteBoard(boardId);
     }
 
     @PostMapping("/board/{boardId}/comment")
-    public void createComment(@RequestBody CommandCommentRequest request, @PathVariable Long boardId) {
+    public void createComment(@RequestBody CommandCommentRequest request, @PathVariable("boardId") Long boardId) {
         boardService.createComment(request, boardId);
     }
 
     @GetMapping("/board/{boardId}/comment/{commentId}")
-    public List<GetCommentResponse> getComments(@PathVariable Long boardId, @PathVariable Long commentId) {
+    public List<GetCommentResponse> getComments(@PathVariable("boardId") Long boardId, @PathVariable("boardId") Long commentId) {
         return boardService.getComments();
     }
 
