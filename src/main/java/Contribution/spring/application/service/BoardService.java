@@ -77,7 +77,7 @@ public class BoardService {
                 .commentContent(request.getCommentContent())
                 .parent(parent)
                 .build();
-        commentRepository.save(comment);
+        commentRepository.save(comment); // 인서트 쿼리 하나만 나가는데 업데이트 쿼리가 같이 나가서
     }
 
     public List<GetCommentResponse> getComments() {
@@ -98,10 +98,19 @@ public class BoardService {
         return boardConverter.getSpecificBoardResponse(board);
     }
 
-    public void updateComment(Long commentId) {
+    @Transactional
+    public void updateComment(Long commentId, UpdateCommentRequest request) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("no exist comment"));
-        comment.updateComment(comment.getCommentContent());
+        comment.updateComment(request.getCommentContent());
+    }
+
+    @Transactional
+    public void deleteComment(Long commentId) {
+        if (!commentRepository.existsById(commentId)) {
+            throw new IllegalArgumentException("no exist comment");
+        }
+        commentRepository.deleteById(commentId);
     }
 }
 

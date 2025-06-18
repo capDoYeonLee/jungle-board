@@ -48,8 +48,18 @@ public class BoardController {
     }
 
     @GetMapping("/board/{boardId}/comment/{commentId}")
-    public List<GetCommentResponse> getComments(@PathVariable("boardId") Long boardId, @PathVariable("boardId") Long commentId) {
+    public List<GetCommentResponse> getComments(@PathVariable("boardId") Long boardId, @PathVariable("commentId") Long commentId) {
         return boardService.getComments();
+    }
+
+    @PutMapping("/board/{boardId}/comment/{commentId}")
+    public void updateComment(@PathVariable("commentId") Long commentId, @RequestBody UpdateCommentRequest request) {
+        boardService.updateComment(commentId, request);
+    }
+
+    @DeleteMapping("/board/{boardId}/comment/{commentId}")
+    public void deleteComment(@PathVariable("commentId") Long commentId) {
+        boardService.deleteComment(commentId);
     }
 
 }
