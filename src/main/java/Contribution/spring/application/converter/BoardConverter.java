@@ -2,7 +2,10 @@ package Contribution.spring.application.converter;
 
 import Contribution.spring.application.dto.CommandBoardRequest;
 import Contribution.spring.application.dto.GetBoardResponse;
+import Contribution.spring.application.dto.GetCommentResponse;
+import Contribution.spring.application.dto.GetSpecificBoardResponse;
 import Contribution.spring.persistence.entity.Board;
+import Contribution.spring.persistence.entity.Comment;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,5 +33,31 @@ public class BoardConverter {
         return boards.stream()
                 .map(this::responseConverter)
                 .collect(Collectors.toList());
+    }
+
+    public GetSpecificBoardResponse getSpecificBoardResponse(Board board) {
+        return GetSpecificBoardResponse.builder()
+                .boardTitle(board.getBoardTitle())
+                .boardAuthor(board.getBoardAuthor())
+                .boardContent(board.getBoardContent())
+                .comments(
+                        board.getComments().stream()
+                                .filter(comment -> comment.getParent() == null)
+                                .map(this::getCommentResponse)
+                                .collect(Collectors.toList())
+                ).build();
+    }
+
+    public GetCommentResponse getCommentResponse(Comment comment) {
+        return GetCommentResponse.builder()
+                .commentId(comment.getCommentId())
+                .commentAuthor(comment.getCommentAuthor())
+                .commentContent(comment.getCommentContent())
+                .replies(
+                        comment.getReplies().stream()
+                                .map(this::getCommentResponse)
+                                .collect(Collectors.toList())
+                )
+                .build();
     }
 } 

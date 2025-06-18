@@ -2,6 +2,7 @@ package Contribution.spring.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "comment")
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
@@ -23,8 +25,7 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
     
-    //private String commentAuthor;
-
+    private String commentAuthor;
     private String commentContent;
 
     @ManyToOne(fetch = FetchType.LAZY)

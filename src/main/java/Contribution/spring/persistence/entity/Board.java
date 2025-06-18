@@ -20,14 +20,15 @@ public class Board {
     private Long id;
 
     private String boardTitle;
-
+    private String boardContent;
     private String boardAuthor;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    public void updateBoard(String boardTitle, String boardAuthor) {
+    public void updateBoard(String boardTitle, String boardContent, String boardAuthor) {
         this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
         this.boardAuthor = boardAuthor;
     }
 }
