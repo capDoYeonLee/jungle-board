@@ -27,9 +27,10 @@ public class BoardService {
     private final CommentConverter commentConverter;
 
     @Transactional
-    public void createBoard(CommandBoardRequest request) {
+    public Long createBoard(CommandBoardRequest request) {
         Board board = boardConverter.requestConverter(request);
-        boardRepository.save(board);
+        Long saveId = boardRepository.save(board).getId();
+        return saveId;
     }
 
     public List<GetBoardResponse> getBoard() {

@@ -18,6 +18,7 @@ public class BoardConverter {
         return Board.builder()
                 .boardTitle(request.getBoardTitle())
                 .boardAuthor(request.getBoardAuthor())
+                .boardContent(request.getBoardContent())
                 .build();
     }
 
