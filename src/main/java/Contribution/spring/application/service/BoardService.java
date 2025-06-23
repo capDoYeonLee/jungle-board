@@ -46,10 +46,10 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(CommandBoardRequest request, Long boardId) throws Exception {
+    public void updateBoard(CommandBoardRequest request, Long boardId) {
         Board board = boardRepository.findById(boardId)
-                .orElseThrow(() -> new Exception("board is empty"));
-        board.updateBoard(request.getBoardTitle(), request.getBoardContent(), request.getBoardAuthor());
+                .orElseThrow(() -> new IllegalArgumentException("no exist board"));
+        board.updateBoard(request.getBoardTitle(), request.getBoardContent());
     }
 
     @Transactional

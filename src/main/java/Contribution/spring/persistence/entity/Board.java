@@ -21,14 +21,18 @@ public class Board {
 
     private String boardTitle;
     private String boardContent;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String boardAuthor;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    public void updateBoard(String boardTitle, String boardContent, String boardAuthor) {
+    public void updateBoard(String boardTitle, String boardContent) {
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
-        this.boardAuthor = boardAuthor;
     }
 }
